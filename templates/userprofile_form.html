@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %} 
+    <div class="container">
+        <form method="POST" id="postForm" enctype="multipart/form-data">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4">
+                    {{ form.first_name|as_crispy_field }}
+                    </div>
+                    <div class="col-lg-4">
+                    {{ form.last_name|as_crispy_field }}
+                    </div>
+                    <div class="col-lg-4">
+                        {{ form.date_of_birth|as_crispy_field }}
+                        </div>
+                </div>
+            
+        
+            {{ form.about|as_crispy_field }}
+            {{ form.visited_Place|as_crispy_field }}
+            {{ form.user_image|as_crispy_field }}
+            
+            <input type="submit" value="Profile"> 
+        </form>
+    </div> 
+    </div>
+       
+{% endblock content %}
+

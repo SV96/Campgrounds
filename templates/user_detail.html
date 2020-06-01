@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="container">
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Welcome To YelpCamp!</h1>
+            <p>View our hand-picked campgrounds from all over the world</p>
+            <p>
+               <a class="btn btn-primary btn-large" href="{% url 'src:new' %}">Add New Campground</a>
+               <a class="btn btn-default btn-large" href="{% url 'accounts:useredit' pk=user.pk%}">Edit profile</a>
+            </p>
+        </div>
+    </header>
+    
+
+    
+    {% for info in info %}
+        <div class="container">
+                <div class="jumbotron">
+                    <h3>Name: {{ info.first_name }} <span>{{ info.last_name }}</span></h3>
+                    <img class="float-right" src="{{info.user_image.url}}" alt="working" style="width:160px;height:140px">
+
+                    <p>
+                       <span>Date of Birth: {{ info.date_of_birth }}</span><br>
+                       <span>About: {{ info.about }}</span><br>
+                       <span>Visited Places: {{ info.visited_Place }}</span>
+                    </p>
+            </div>
+        </div>
+    {% endfor %}     
+
+       
+            
+            <div class="" style="margin-left:15%; border: solid ghostwhite;">
+                {% for info in info %}
+                    {% for post in post %}
+                        <h3>{{ info.first_name }} <span>{{ info.last_name }}</span></h3>
+                        <img src="{{info.user_image.url}}" alt="working" style="width:40px;height:40px">
+                        <p>{{ post.created_date_post }}</p>
+                        
+                        <div class="card" style="width: 18rem;">
+                        
+                            <img class="card-img-top" src="{{ post.image.url }}" alt="Card image cap" style="width:640px;height:640px">
+                            <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">{{ post.description }}</p>
+                            <a href="{% url 'src:detail' post.pk %}" class="btn btn-primary">View</a>
+                    {% endfor %}   
+                {% endfor %}     
+                            </div>
+                        </div>
+            </div>
+            <br>
+            
+     
+
+   </div>
+
+
+
+{% endblock content %}

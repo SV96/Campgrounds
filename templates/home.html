@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if messages %}
+<div class="container" style="background-color: rgb(231, 224, 224);">
+   {% for message in messages %}
+	  <p>{{ message }}</p>
+   {% endfor %}
+</div>
+{% endif %}
+<div class="container">
+    <div class="probootstrap-home-search probootstrap-animate">
+        <form action="{% url 'src:search' %}" method="get">
+          <h2 class="heading">Search your Wanted Location</h2>
+          <div class="probootstrap-field-group">
+            <div class="probootstrap-fields">
+              
+              <div class="search-field">
+                <i class="icon-location2"></i>
+                <input type="text" name = 'get_camp' class="form-control" placeholder="Enter name or location">
+              </div>
+              <div class="search-category">
+                <i class="icon-chevron-down"></i>
+               
+              </div>
+            </div>
+            <button class="btn btn-success" type="submit"><i class="icon-magnifying-glass t2"></i> Start Search</button>
+          </div>
+        </form>
+      </div>
+</div>
+
+<div class="container">
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Welcome To YelpCamp!</h1>
+            <p>View our hand-picked campgrounds from all over the world</p>
+            <p>
+               <a class="btn btn-primary btn-large" href="{% url 'src:new' %}">Add New Campground</a>
+            </p>
+        </div>
+    </header>
+    
+    <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+
+
+        {% for post in campgrounds %}
+            <div class="col-md-3 col-sm-6" >
+                <div class="thumbnail">
+                    <img src="{{ post.image.url }}" style="width:340px;height:240px">
+                    <div class="caption">
+                        <h4>{{ post.title }}</h4>
+                    </div>
+                    <p>
+                        <a href="{% url 'src:detail' post.pk %}" class="btn btn-primary">More Info</a>
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+
+
+   </div>
+</div>
+
+
+{% endblock content %}

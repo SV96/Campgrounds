@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+    <div class="container">
+        <div class="row">
+           
+         
+            <div class="col-md-12">
+                <div class="thumbnail">
+                    <img class="img-responsive" src="{{ post.image.url }}">
+                    <div class="caption-full">
+                        <h4 class="pull-right">${{ post.amount }}/{{ post.amount_type }}</h4>
+                        
+                        <h4><a>{{ post.title }}</a></h4>
+
+                        <p>{{ post.description }}</p>
+                        <h4 class="pull-right"><em>Loaction:<strong>{{ post.location }}</strong> </em></h4>
+                        <p>
+                            <em>Submitted By <a href="{% url 'accounts:usershow' pk=post.user.pk%}"> {{ post.user.username }}</a> </em>
+                        </p>
+                        <p>
+                            <em>Posted on {{ post.created_date_post }}</em>
+                        </p>
+                        {% if user.is_authenticated and post.user == user and not hide_delete %}
+                                <a class="btn btn-xs btn-warning" href="{% url 'src:update' post.pk %}">Edit</a>
+                                <a class="btn btn-xs btn-danger float-right" href="{% url 'src:remove' post.pk %}">Delete</a>
+                            {% endif %} 
+                            <a class="btn btn-xs btn-default float-right" href="{% url 'src:reserve' post.pk %}">Get it</a>
+
+                    </div>
+                </div>
+            
+                    <div class="text-right">
+                        <a class="btn btn-success" href="{% url 'src:add_comment' pk=post.pk %}">Add New Comment</a>
+                    </div>
+                    <hr>
+                   
+                
+                </div>
+            </div>
+            <div class="well">
+               
+                <hr>
+          
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% for comment in post.comments.all %}
+                                <strong>{{ comment.comment_user }}</strong>
+                                <span class="pull-right">{{ comment.created_date_comment }}</span>
+                                <p>
+                                {{ comment.text }}
+                                </p>
+                                {% if user.is_authenticated and comment.comment_user == user and not hide_delete %} 
+                                    <a class="btn btn-xs btn-danger" href="{% url 'src:comment_remove' pk=comment.pk %}">Delete</a>
+                                    <a class="btn btn-xs btn-warning" href="{% url 'src:comment_update' pk=comment.pk %}">Update</a><br>
+                                {% endif %}
+                            {% endfor %}
+                      
+                        </div>
+                    </div>
+               
+            </div>
+        </div>
+
+    </div>
+
+    
+
+{% endblock content %}
